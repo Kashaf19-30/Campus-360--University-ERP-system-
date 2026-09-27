@@ -1,0 +1,6 @@
+from .recommendation_engine import RecommendationEngine
+from .subject_analyzer import calculate_subject_strength
+from .interest_analyzer import calculate_interest_match
+from .goal_analyzer import calculate_goal_match
+from .trend_analyzer import calculate_trend_score
+from .explanation_generator import generate_reasons

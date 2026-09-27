@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus 360 | University of Sialkot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #002147;
+            --primary-navy-light: #003366;
+            --secondary-gold: #FFD700;
+            --secondary-gold-dark: #ccac00;
+            --white: #ffffff;
+            --light-gray: #f9fafb;
+            --medium-gray: #e5e7eb;
+            --dark-gray: #374151;
+            --text-dark: #1f2937;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(0, 33, 71, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 55px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-gold);
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 33, 71, 0.75), rgba(0, 33, 71, 0.8)), url('hero_background.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .erp-tag {
+            display: inline-block;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-navy);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: var(--primary-navy-light);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: #f0c800;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-navy);
+            transform: translateY(-3px);
+        }
+
+        /* Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 45px 35px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-navy);
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: var(--dark-gray);
+        }
+
+        /* Contact Form */
+        .form-card {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 12px;
+            outline: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-navy);
+            box-shadow: 0 0 0 4px rgba(0, 33, 71, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-navy);
+            color: var(--white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: var(--secondary-gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="university_logo.png" alt="University of Sialkot Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#academics">Academics</a></li>
+                <li><a href="#admission">Admission</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#apply" class="btn btn-secondary">Apply For</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="erp-tag">Official ERP Portal</span>
+            <h1>Welcome to <span style="color: var(--secondary-gold)">Campus 360</span></h1>
+            <p>Start Your Career with Passion. Experience the future of university management at the University of
+                Sialkot.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#apply" class="btn btn-secondary">Explore Admissions</a>
+                <a href="#about" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section container" id="about">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 2.5rem; color: var(--primary-navy); margin-bottom: 20px;">Redefining <span
+                    style="color: var(--secondary-gold-dark)">Academic Management</span></h2>
+            <p style="font-size: 1.2rem; color: var(--dark-gray);">University of Sialkot's Campus 360 is a
+                state-of-the-art ERP system designed to streamline every aspect of the student and faculty experience.
+                From enrollment to graduation, we provide a seamless digital ecosystem.</p>
+        </div>
+
+        <div class="features-grid" id="academics">
+            <div class="card">
+                <span class="card-icon">🎓</span>
+                <h3>Student Portal</h3>
+                <p>Manage your courses, view attendance, and track academic progress in real-time with our intuitive
+                    dashboard.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🏛️</span>
+                <h3>Departmental HUB</h3>
+                <p>Centralized resource management for academic departments, faculty scheduling, and research tracking.
+                </p>
+            </div>
+            <div class="card">
+                <span class="card-icon">💳</span>
+                <h3>Financial Services</h3>
+                <p>Secure online fee payment, installment plans, and scholarship applications directly through your
+                    portal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="admission" style="background: white;">
+        <div class="container" style="display: flex; align-items: center; gap: 60px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="font-size: 2.5rem; color: var(--primary-navy); margin-bottom: 25px;">Admissions <span
+                        style="color: var(--secondary-gold-dark)">Fall 2024</span></h2>
+                <p style="margin-bottom: 20px;">Join the University of Sialkot and be part of a vibrant academic
+                    community. We offer over 50+ programs tailored for the modern industry.</p>
+                <ul style="list-style: none; margin-bottom: 30px;">
+                    <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">✅ Merit-based
+                        Scholarships</li>
+                    <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">✅ Advanced Labs &
+                        Facilities</li>
+                    <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">✅ Global Industry
+                        Connections</li>
+                </ul>
+                <a href="#apply" class="btn btn-primary" id="apply">Apply Online Now</a>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <div
+                    style="background: var(--light-gray); padding: 40px; border-radius: 30px; text-align: center; border: 2px dashed var(--medium-gray);">
+                    <h3 style="margin-bottom: 15px;">Need Assistance?</h3>
+                    <p>Our admission counselors are ready to help you choose the right path.</p>
+                    <div style="margin-top: 20px; font-weight: bold; color: var(--primary-navy);">Call us: +92 (0) 52
+                        123 4567</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section container" id="contact">
+        <div class="form-card card">
+            <h2 style="text-align: center; margin-bottom: 35px; color: var(--primary-navy);">Get in Touch</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Program of Interest</label>
+                    <select
+                        style="width: 100%; padding: 15px; border: 1px solid var(--medium-gray); border-radius: 12px; font-size: 1rem;">
+                        <option>Computer Science</option>
+                        <option>Business Administration</option>
+                        <option>Physical Therapy</option>
+                        <option>English Literature</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="5" placeholder="Your Inquiry..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+            </form>
+            <div id="formStatus"
+                style="display: none; text-align: center; margin-top: 20px; padding: 15px; border-radius: 10px; background: #dcfce7; color: #166534;">
+                Thank you! Our team will contact you shortly.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 style="margin-bottom: 20px; font-size: 1.8rem; color: var(--secondary-gold);">Campus 360</h3>
+                    <p style="opacity: 0.7; max-width: 350px;">The official Enterprise Resource Planning system of the
+                        University of Sialkot. Driving innovation in education.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About USKT</a></li>
+                        <li><a href="#academics">Academics</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Compliance</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">HEC Guidelines</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px;">
+            <p style="text-align: center; opacity: 0.6; font-size: 0.9rem;">&copy; 2024 University of Sialkot. All
+                rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Simple Form Validation
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('formStatus').style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
